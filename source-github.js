@@ -51,5 +51,6 @@ export async function getVersion(version) {
     const assetArchive = await toolcache.downloadTool(asset.browser_download_url, assetName, `Token ${githubToken}`)
     const assetExtracted = await toolcache.extractTar(assetArchive, '.installed/grcov', '-xv')
 
+    if (os.platform() === 'win32') return `${assetExtracted}/grcov.exe`
     return `${assetExtracted}/grcov`
 }
