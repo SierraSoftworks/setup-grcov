@@ -1,10 +1,10 @@
-const os = require('os')
-const core = require('@actions/core')
-const toolcache = require('@actions/tool-cache')
+import os from 'os'
+import * as core from '@actions/core'
+import * as toolcache from '@actions/tool-cache'
 
-const sourceGithub = require('./source-github')
-const sourceCargo = require('./source-cargo')
-const { default: resolveVersion } = require('./version')
+import * as sourceGithub from './source-github.js'
+import * as sourceCargo from './source-cargo.js'
+import resolveVersion from './version.js'
 
 const sources = [
     sourceGithub,

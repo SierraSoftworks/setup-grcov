@@ -2,6 +2,7 @@
     "name": "install-grcov",
     "version": "1.0.0",
     "license": "MIT",
+    "type": "module",
     "author": {
         "name": "Benjamin Pannell",
         "email": "benjamin@pannell.dev",
@@ -9,15 +10,16 @@
     },
     "scripts": {
         "build": "ncc build index.js -o dist --source-map",
+        "package": "ncc build index.js -o dist --source-map",
         "test": "echo No Tests Yet!"
     },
     "main": "index.js",
     "dependencies": {
-        "@actions/core": "^1.11.1",
-        "@actions/exec": "^1.0.4",
-        "@actions/github": "^4.0.0",
-        "@actions/io": "^1.0.2",
-        "@actions/tool-cache": "^2.0.2"
+        "@actions/core": "^3.0.1",
+        "@actions/exec": "^3.0.0",
+        "@actions/github": "^9.1.1",
+        "@actions/io": "^3.0.2",
+        "@actions/tool-cache": "^4.0.0"
     },
     "devDependencies": {
         "@vercel/ncc": "^0.38.4"
