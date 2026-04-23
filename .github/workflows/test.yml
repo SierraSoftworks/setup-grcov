@@ -1,6 +1,14 @@
-on: push
-
 name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
 jobs:
   test-js:
     name: JavaScript
