@@ -1,8 +1,8 @@
-const os = require('os')
-const core = require('@actions/core')
-const github = require('@actions/github')
-const toolcache = require('@actions/tool-cache')
-const config = require('./config')
+import os from 'os'
+import * as core from '@actions/core'
+import * as github from '@actions/github'
+import * as toolcache from '@actions/tool-cache'
+import * as config from './config.js'
 
 /**
  * Determines whether the current platform supports this source.
@@ -27,7 +27,7 @@ export async function getVersion(version) {
     }
 
     core.debug(`Fetching release information for mozilla/grcov@${version}`)
-    const release = await octokit.repos.getReleaseByTag({
+    const release = await octokit.rest.repos.getReleaseByTag({
         ...config.grcovRepo,
         tag: `v${version}`
     })
@@ -37,7 +37,7 @@ export async function getVersion(version) {
     }
     
     core.debug(`Fetching assets for mozilla/grcov@${version}`)
-    const assets = await octokit.repos.listReleaseAssets({
+    const assets = await octokit.rest.repos.listReleaseAssets({
         ...config.grcovRepo,
         release_id: release.data.id
     })

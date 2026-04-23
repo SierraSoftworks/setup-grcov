@@ -1,3 +1,5 @@
+import os from 'os'
+
 export const grcovRepo = {
     owner: "mozilla",
     repo: "grcov"

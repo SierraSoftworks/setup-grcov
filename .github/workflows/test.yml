@@ -6,20 +6,18 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
-  test-js:
-    name: JavaScript
-    runs-on: ubuntu-20.04
+  build:
+    name: Build
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          version: '12.x'
+          node-version: 'lts/*'
+          cache: npm
       - run: npm ci
-      - run: npm run build --if-exists
+      - run: npm run build
       - run: npm test
 
   test-action:
@@ -29,16 +27,19 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v2
-        if: ${{ env.ACT }}
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          path: setup-grcov
-      - uses: actions/checkout@v2
-        if: ${{ !env.ACT }}
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
+          node-version: 'lts/*'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build dist
+        run: npm run package
+
       - uses: ./
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
