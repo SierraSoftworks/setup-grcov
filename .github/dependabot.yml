@@ -4,6 +4,10 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: daily
+    groups:
+      actions:
+        patterns:
+          - "@actions/*"
   - directory: /
     package-ecosystem: github-actions
     schedule:

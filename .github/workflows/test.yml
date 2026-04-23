@@ -1,17 +1,23 @@
-on: push
-
 name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
 jobs:
-  test-js:
-    name: JavaScript
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+          cache: npm
       - run: npm ci
-      - run: npm run build --if-exists
+      - run: npm run build
       - run: npm test
 
   test-action:
@@ -22,15 +28,18 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
-        if: ${{ env.ACT }}
+
+      - uses: actions/setup-node@v4
         with:
-          path: setup-grcov
-      - uses: actions/checkout@v4
-        if: ${{ !env.ACT }}
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
+          node-version: 'lts/*'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build dist
+        run: npm run package
+
       - uses: ./
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

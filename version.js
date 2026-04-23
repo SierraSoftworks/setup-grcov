@@ -1,6 +1,6 @@
-const core = require('@actions/core')
-const github = require('@actions/github')
-const config = require('./config')
+import * as core from '@actions/core'
+import * as github from '@actions/github'
+import * as config from './config.js'
 
 export default async function resolveVersion(version) {
     if (version !== "latest") {
@@ -12,7 +12,7 @@ export default async function resolveVersion(version) {
 
     
     core.debug("Fetching releases for mozilla/grcov")
-    const releases = await octokit.repos.listReleases(config.grcovRepo)
+    const releases = await octokit.rest.repos.listReleases(config.grcovRepo)
 
     core.debug("Found the following mozilla/grcov releases")
     releases.data.forEach(r => core.debug(`  - ${r.tag_name}`))
