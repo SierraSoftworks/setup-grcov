@@ -6,6 +6,7 @@ export const grcovRepo = {
 }
 
 export const platformAssets = {
-    'linux': "grcov-linux-x86_64.tar.bz2",
-    'darwin': 'grcov-osx-x86_64.tar.bz2'
+    'darwin': 'grcov-x86_64-apple-darwin.tar.bz2',
+    'linux': "grcov-x86_64-unknown-linux-gnu.tar.bz2",
+    'windows': "grcov-x86_64-pc-windows-msvc.zip"
 }
