@@ -13,6 +13,8 @@ const sources = [
 
 const arch = `${os.platform()}-${os.arch()}`
 
+const binaryName = os.platform() === 'win32' ? 'grcov.exe' : 'grcov'
+
 async function runAction() {
     const version = await resolveVersion(core.getInput("version", { required: false }) || "latest")
 
@@ -31,7 +33,7 @@ async function runAction() {
     core.info(`Installing mozilla/grcov@${version}`)
     const installedPath = await source.getVersion(version)
 
-    cachedPath = await toolcache.cacheFile(installedPath, 'grcov', 'mozilla/grcov', version, arch)
+    cachedPath = await toolcache.cacheFile(installedPath, binaryName, 'mozilla/grcov', version, arch)
     core.addPath(cachedPath)
     core.info(`Installed mozilla/grcov@${version}`)
 }
